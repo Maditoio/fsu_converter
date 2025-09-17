@@ -1,7 +1,7 @@
 # Quick Start Guide
 
 ## What This App Does
-Converts CSV files with format `lock,fsu,start,end` to Excel files and adds a hexadecimal conversion column for the lock values.
+Converts CSV files with format `lock,fsu,start,end` to Excel files and replaces the lock column with lock id in hexadecimal format (without 0x prefix).
 
 ## How to Run
 
@@ -33,8 +33,8 @@ lock,fsu,start,end
 
 **Output Excel:**
 ```
-lock  | lock hex | fsu     | start                      | end
-55062 | 0xd716   | 3-9-2-8 | 2025-09-16 00:00:00 +0000 | 2025-09-16 04:00:00 +0000
+lock id | fsu     | start                      | end
+d716    | 3-9-2-8 | 2025-09-16 00:00:00 +0000 | 2025-09-16 04:00:00 +0000
 ```
 
 ## Test File

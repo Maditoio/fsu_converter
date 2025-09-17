@@ -6,7 +6,7 @@ A simple Python GUI application that converts CSV files to Excel format and adds
 
 - **User-friendly GUI** built with tkinter
 - **Multi-file processing** - select and convert multiple CSV files at once
-- **Lock hex conversion** - automatically adds a "lock hex" column with hexadecimal values
+- **Lock ID conversion** - replaces lock column with lock id in hexadecimal format (without 0x prefix)
 - **Error handling** - validates CSV format and provides detailed error messages
 - **Progress tracking** - visual progress bar and status updates
 - **Customizable output** - choose where to save converted files
@@ -69,15 +69,15 @@ lock,fsu,start,end
 
 The application will:
 1. Read your CSV files
-2. Add a "lock hex" column next to the "lock" column
-3. Convert lock values to hexadecimal (e.g., 55062 → 0xd706)
+2. Replace the "lock" column with "lock id" column containing hexadecimal values
+3. Convert lock values to hexadecimal without 0x prefix (e.g., 55062 → d716)
 4. Save as Excel (.xlsx) files with "_converted" suffix
 
 ### Example Output:
 ```
-lock    | lock hex | fsu     | start                      | end
-55062   | 0xd706   | 3-9-2-8 | 2025-09-16 00:00:00 +0000 | 2025-09-16 04:00:00 +0000
-55063   | 0xd707   | 3-9-2-9 | 2025-09-16 04:00:00 +0000 | 2025-09-16 08:00:00 +0000
+lock id | fsu     | start                      | end
+d716    | 3-9-2-8 | 2025-09-16 00:00:00 +0000 | 2025-09-16 04:00:00 +0000
+d717    | 3-9-2-9 | 2025-09-16 04:00:00 +0000 | 2025-09-16 08:00:00 +0000
 ```
 
 ## Error Handling

@@ -1,8 +1,8 @@
 """
-CSV to Excel Converter with Lock Hex Conversion
+CSV to Excel Converter with Lock ID Conversion
 Author: Mumba Mukendi and Github Copilot
 Description: A simple GUI application that converts CSV files to Excel format
-             and adds a hexadecimal conversion column for lock values.
+             and replaces lock values with lock id in hexadecimal format.
 """
 
 import tkinter as tk
@@ -40,13 +40,13 @@ class CSVToExcelConverter:
         main_frame.columnconfigure(1, weight=1)
         
         # Title
-        title_label = ttk.Label(main_frame, text="CSV to Excel Converter", 
+        title_label = ttk.Label(main_frame, text="FSU HEXER TOOL", 
                                font=("Arial", 16, "bold"))
         title_label.grid(row=0, column=0, columnspan=3, pady=(0, 20))
         
         # Description
         desc_text = ("Select CSV files with format: lock,fsu,start,end\n"
-                    "The app will convert to Excel and add a 'lock hex' column")
+                    "The app will convert to Excel and replace 'lock' with 'lock id' in hex format")
         desc_label = ttk.Label(main_frame, text=desc_text, 
                               font=("Arial", 10), foreground="gray")
         desc_label.grid(row=1, column=0, columnspan=3, pady=(0, 20))
@@ -153,7 +153,7 @@ class CSVToExcelConverter:
                                  f"Could not open directory: {directory_path}\nError: {e}")
     
     def convert_files(self):
-        """Convert selected CSV files to Excel with lock hex column"""
+        """Convert selected CSV files to Excel with lock id column (hex format)"""
         if not self.selected_files:
             messagebox.showwarning("No Files", "Please select at least one CSV file.")
             return
@@ -193,13 +193,12 @@ class CSVToExcelConverter:
                     if not all(col in df.columns for col in required_columns):
                         raise ValueError(f"Missing required columns. Expected: {required_columns}")
                     
-                    # Add lock hex column
-                    df['lock hex'] = df['lock'].apply(lambda x: hex(int(x)) if pd.notna(x) else '')
+                    # Add lock id column (hex without 0x prefix)
+                    df['lock id'] = df['lock'].apply(lambda x: hex(int(x))[2:] if pd.notna(x) else '')
                     
-                    # Reorder columns to have lock hex next to lock
-                    columns = df.columns.tolist()
-                    lock_idx = columns.index('lock')
-                    columns.insert(lock_idx + 1, columns.pop(columns.index('lock hex')))
+                    # Remove the original lock column and reorder
+                    df = df.drop('lock', axis=1)
+                    columns = ['lock id', 'fsu', 'start', 'end']
                     df = df[columns]
                     
                     # Generate output filename
@@ -268,7 +267,7 @@ def main():
     
     # Set application icon (optional)
     try:
-        root.iconbitmap(default="icon.ico")  # You can add an icon file later
+        root.iconbitmap(default="icon.ico")
     except:
         pass
     

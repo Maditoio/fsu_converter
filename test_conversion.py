@@ -19,13 +19,12 @@ def test_conversion():
     print("\nOriginal data:")
     print(df.head())
     
-    # Add lock hex column
-    df['lock hex'] = df['lock'].apply(lambda x: hex(int(x)) if pd.notna(x) else '')
+    # Add lock id column (hex without 0x prefix)
+    df['lock id'] = df['lock'].apply(lambda x: hex(int(x))[2:] if pd.notna(x) else '')
     
-    # Reorder columns
-    columns = df.columns.tolist()
-    lock_idx = columns.index('lock')
-    columns.insert(lock_idx + 1, columns.pop(columns.index('lock hex')))
+    # Remove the original lock column and reorder
+    df = df.drop('lock', axis=1)
+    columns = ['lock id', 'fsu', 'start', 'end']
     df = df[columns]
     
     print(f"\nProcessed data shape: {df.shape}")
