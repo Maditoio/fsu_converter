@@ -10,6 +10,7 @@ A simple Python GUI application that converts CSV files to Excel format and adds
 - **Error handling** - validates CSV format and provides detailed error messages
 - **Progress tracking** - visual progress bar and status updates
 - **Customizable output** - choose where to save converted files
+- **Cross-platform** - works on Windows, macOS, and Linux
 
 ## Requirements
 
@@ -28,15 +29,25 @@ pip install -r requirements.txt
 
 ## Usage
 
-1. Run the application:
+### Running the Application
 
-```bash
-python csv_to_excel_converter.py
-```
+**Windows:**
+- Double-click `run_converter.bat`, or
+- Run: `python csv_to_excel_converter.py`
 
-2. **Select CSV Files**: Click "Select CSV Files" to choose one or multiple CSV files
-3. **Choose Output Directory**: Browse to select where you want the converted Excel files saved
-4. **Convert**: Click "Convert Files" to start the conversion process
+**macOS:**
+- Run: `chmod +x run_converter.sh && ./run_converter.sh`, or
+- Run: `python3 csv_to_excel_converter.py`
+
+**Linux:**
+- Run: `chmod +x run_converter_linux.sh && ./run_converter_linux.sh`, or
+- Run: `python3 csv_to_excel_converter.py`
+
+### Using the GUI
+
+1. **Select CSV Files**: Click "Select CSV Files" to choose one or multiple CSV files
+2. **Choose Output Directory**: Browse to select where you want the converted Excel files saved
+3. **Convert**: Click "Convert Files" to start the conversion process
 
 ## CSV File Format
 

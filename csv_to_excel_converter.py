@@ -1,6 +1,6 @@
 """
 CSV to Excel Converter with Lock Hex Conversion
-Author: GitHub Copilot
+Author: Mumba Mukendi and Github Copilot
 Description: A simple GUI application that converts CSV files to Excel format
              and adds a hexadecimal conversion column for lock values.
 """
@@ -11,6 +11,8 @@ import pandas as pd
 import os
 from pathlib import Path
 import threading
+import subprocess
+import platform
 
 
 class CSVToExcelConverter:
@@ -134,6 +136,22 @@ class CSVToExcelConverter:
         if directory:
             self.output_directory.set(directory)
     
+    def _open_directory(self, directory_path):
+        """Open directory in the system's default file manager (cross-platform)"""
+        try:
+            system = platform.system()
+            if system == "Darwin":    # macOS
+                subprocess.run(["open", directory_path])
+            elif system == "Windows": # Windows
+                os.startfile(directory_path)
+            elif system == "Linux":   # Linux
+                subprocess.run(["xdg-open", directory_path])
+            else:
+                print(f"Cannot open directory on {system}. Directory: {directory_path}")
+        except Exception as e:
+            messagebox.showwarning("Cannot Open Directory", 
+                                 f"Could not open directory: {directory_path}\nError: {e}")
+    
     def convert_files(self):
         """Convert selected CSV files to Excel with lock hex column"""
         if not self.selected_files:
@@ -219,7 +237,7 @@ class CSVToExcelConverter:
             
             # Ask if user wants to open the output directory
             if messagebox.askyesno("Open Directory", "Would you like to open the output directory?"):
-                os.startfile(self.output_directory.get())
+                self._open_directory(self.output_directory.get())
                 
         elif converted_files and failed_files:
             message = f"Converted {len(converted_files)} file(s) successfully.\n"

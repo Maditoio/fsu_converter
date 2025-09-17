@@ -5,18 +5,17 @@ Converts CSV files with format `lock,fsu,start,end` to Excel files and adds a he
 
 ## How to Run
 
-### Option 1: Double-click the batch file
-- Simply double-click `run_converter.bat`
-- This will install dependencies and start the app
+### Windows
+- **Easy way**: Double-click `run_converter.bat`
+- **Manual**: `pip install -r requirements.txt` then `python csv_to_excel_converter.py`
 
-### Option 2: Command line
-```bash
-# Install dependencies
-pip install -r requirements.txt
+### macOS
+- **Easy way**: Run `chmod +x run_converter.sh && ./run_converter.sh`
+- **Manual**: `pip3 install -r requirements.txt` then `python3 csv_to_excel_converter.py`
 
-# Run the application
-python csv_to_excel_converter.py
-```
+### Linux
+- **Easy way**: Run `chmod +x run_converter_linux.sh && ./run_converter_linux.sh`
+- **Manual**: `pip3 install -r requirements.txt` then `python3 csv_to_excel_converter.py`
 
 ## Using the Application
 
